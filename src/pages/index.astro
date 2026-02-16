@@ -1,11 +1,764 @@
 ---
-import Welcome from '../components/Welcome.astro';
 import Layout from '../layouts/Layout.astro';
-
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
 ---
 
 <Layout>
-	<Welcome />
+
+	<style>
+	@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Montserrat:wght@400;500;600;700&display=swap');
+	
+	* {
+		font-family: 'Montserrat', sans-serif;
+	}
+	
+	h1, h2, h3, .heading {
+		font-family: 'Bebas Neue', cursive;
+		letter-spacing: 2px;
+	}
+
+	@keyframes fadeInUp {
+		from {
+		opacity: 0;
+		transform: translateY(30px);
+		}
+		to {
+		opacity: 1;
+		transform: translateY(0);
+		}
+	}
+
+	@keyframes slideInRight {
+		from {
+		opacity: 0;
+		transform: translateX(-30px);
+		}
+		to {
+		opacity: 1;
+		transform: translateX(0);
+		}
+	}
+
+	.animate-fade-in {
+		animation: fadeInUp 0.8s ease-out forwards;
+	}
+
+	.animate-slide {
+		animation: slideInRight 0.6s ease-out forwards;
+	}
+
+	.whatsapp-float {
+		position: fixed;
+		width: 60px;
+		height: 60px;
+		bottom: 30px;
+		right: 30px;
+		background-color: #25d366;
+		color: #FFF;
+		border-radius: 50px;
+		text-align: center;
+		font-size: 30px;
+		box-shadow: 2px 2px 15px rgba(0, 0, 0, 0.3);
+		z-index: 100;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		transition: all 0.3s ease;
+	}
+
+	.whatsapp-float:hover {
+		background-color: #20ba5a;
+		transform: scale(1.1);
+	}
+
+	.service-card {
+		transition: all 0.3s ease;
+	}
+
+	.service-card:hover {
+		transform: translateY(-10px);
+		box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+	}
+
+	.gallery-img {
+		transition: all 0.4s ease;
+		filter: grayscale(30%);
+	}
+
+	.gallery-img:hover {
+		transform: scale(1.05);
+		filter: grayscale(0%);
+	}
+
+	.header-sticky {
+		position: sticky;
+		top: 0;
+		z-index: 50;
+		backdrop-filter: blur(10px);
+		background: rgba(9, 9, 11, 0.95);
+	}
+
+	.stripe-pattern {
+		background-image: repeating-linear-gradient(
+		45deg,
+		transparent,
+		transparent 10px,
+		rgba(255, 255, 255, 0.03) 10px,
+		rgba(255, 255, 255, 0.03) 20px
+		);
+	}
+	</style>
+
+	<!-- HEADER -->
+	<header class="header-sticky border-b border-zinc-800">
+		<div class="max-w-7xl mx-auto px-6 py-4">
+			<nav class="flex items-center justify-between">
+			
+			<!-- Logo -->
+			<div class="flex items-center gap-3">
+				<div class="w-10 h-10 bg-gradient-to-br from-amber-500 to-orange-600 rounded-lg flex items-center justify-center">
+				<span class="text-white text-xl font-bold">✂</span>
+				</div>
+				<span class="text-white font-bold text-xl heading">Modern Style</span>
+			</div>
+
+			<!-- Menu Desktop -->
+			<div class="hidden md:flex items-center gap-8">
+				<a href="#inicio" class="text-zinc-400 hover:text-white transition">Inicio</a>
+				<a href="#servicios" class="text-zinc-400 hover:text-white transition">Servicios</a>
+				<a href="#galeria" class="text-zinc-400 hover:text-white transition">Galería</a>
+				<a href="#equipo" class="text-zinc-400 hover:text-white transition">Equipo</a>
+				<a href="#turnos" class="text-zinc-400 hover:text-white transition">Turnos</a>
+			</div>
+
+			<!-- Redes & CTA -->
+			<div class="flex items-center gap-4">
+				<div class="hidden sm:flex items-center gap-3">
+				<a href="https://instagram.com" target="_blank" class="text-zinc-400 hover:text-pink-500 transition">
+					<svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+				</a>
+				<a href="https://facebook.com" target="_blank" class="text-zinc-400 hover:text-blue-500 transition">
+					<svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+				</a>
+				<a href="https://wa.me/5493516123456" target="_blank" class="text-zinc-400 hover:text-green-500 transition">
+					<svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
+				</a>
+				</div>
+				<a href="#turnos" class="bg-gradient-to-r from-amber-500 to-orange-600 text-white px-6 py-2 rounded-lg font-semibold hover:from-amber-600 hover:to-orange-700 transition">
+				Reservar
+				</a>
+			</div>
+			</nav>
+		</div>
+	</header>
+
+
+	<!-- HERO -->
+	<section id="inicio" class="bg-zinc-950 text-white stripe-pattern">
+		<div class="max-w-6xl mx-auto px-6 py-24 grid lg:grid-cols-2 gap-12 items-center">
+
+			<div class="animate-fade-in">
+			<div class="text-amber-500 font-semibold mb-4">BARBERÍA PROFESIONAL</div>
+			<h1 class="text-5xl sm:text-6xl lg:text-7xl font-bold mb-6 leading-tight">
+				Modern Style
+			</h1>
+
+			<p class="text-zinc-400 text-lg mb-8 leading-relaxed">
+				Reservá tu turno online en segundos. Cortes modernos, barba y atención profesional en el corazón de Córdoba.
+			</p>
+
+			<div class="flex flex-wrap gap-4 mb-8">
+				<a href="#turnos"
+				class="bg-gradient-to-r from-amber-500 to-orange-600 text-white px-8 py-4 rounded-xl font-semibold hover:from-amber-600 hover:to-orange-700 transition shadow-lg">
+				Reservar turno
+				</a>
+				<a href="#servicios"
+				class="border-2 border-zinc-700 text-white px-8 py-4 rounded-xl font-semibold hover:border-amber-500 hover:text-amber-500 transition">
+				Ver servicios
+				</a>
+			</div>
+
+			<div class="flex items-center gap-6 text-zinc-400 text-sm">
+				<div class="flex items-center gap-2">
+				<span class="text-amber-500">📍</span>
+				<span>Córdoba Capital, Argentina</span>
+				</div>
+				<div class="flex items-center gap-2">
+				<span class="text-amber-500">🕒</span>
+				<span>Lun-Sáb 9:00-20:00</span>
+				</div>
+			</div>
+			</div>
+
+			<!-- Imagen Hero -->
+			<div class="relative animate-slide">
+			<div class="absolute inset-0 bg-gradient-to-br from-amber-500/20 to-orange-600/20 rounded-3xl blur-3xl"></div>
+			<div class="relative bg-zinc-900 border-2 border-zinc-800 rounded-3xl h-96 overflow-hidden">
+				<img src="https://images.unsplash.com/photo-1503951914875-452162b0f3f1?w=800" 
+					alt="Barbería moderna" 
+					class="w-full h-full object-cover opacity-80">
+			</div>
+			</div>
+
+		</div>
+	</section>
+
+
+	<!-- SERVICIOS -->
+	<section id="servicios" class="bg-zinc-900 text-white py-24">
+		<div class="max-w-6xl mx-auto px-6">
+
+			<div class="text-center mb-16">
+			<div class="text-amber-500 font-semibold mb-3">NUESTROS SERVICIOS</div>
+			<h2 class="text-4xl sm:text-5xl font-bold mb-4">
+				Lo que ofrecemos
+			</h2>
+			<p class="text-zinc-400 max-w-2xl mx-auto">
+				Servicios profesionales con productos de primera calidad
+			</p>
+			</div>
+
+			<div class="grid md:grid-cols-3 gap-6">
+
+			<div class="service-card bg-zinc-800 p-8 rounded-2xl border-2 border-zinc-700 hover:border-amber-500">
+				<div class="text-4xl mb-4">✂️</div>
+				<h3 class="font-bold text-2xl mb-3 heading">Corte Clásico</h3>
+				<p class="text-zinc-400 mb-6 leading-relaxed">Corte profesional con terminaciones perfectas y lavado incluido</p>
+				<div class="flex items-baseline gap-2">
+				<span class="text-3xl font-bold text-amber-500">$6.000</span>
+				<span class="text-zinc-500">ARS</span>
+				</div>
+			</div>
+
+			<div class="service-card bg-gradient-to-br from-amber-500 to-orange-600 p-8 rounded-2xl border-2 border-amber-400 shadow-xl">
+				<div class="absolute top-4 right-4 bg-white text-amber-600 text-xs font-bold px-3 py-1 rounded-full">
+				POPULAR
+				</div>
+				<div class="text-4xl mb-4">💈</div>
+				<h3 class="font-bold text-2xl mb-3 heading text-white">Corte + Barba</h3>
+				<p class="text-white/90 mb-6 leading-relaxed">Corte completo y perfilado profesional de barba con toalla caliente</p>
+				<div class="flex items-baseline gap-2">
+				<span class="text-3xl font-bold text-white">$9.000</span>
+				<span class="text-white/80">ARS</span>
+				</div>
+			</div>
+
+			<div class="service-card bg-zinc-800 p-8 rounded-2xl border-2 border-zinc-700 hover:border-amber-500">
+				<div class="text-4xl mb-4">🪒</div>
+				<h3 class="font-bold text-2xl mb-3 heading">Barba</h3>
+				<p class="text-zinc-400 mb-6 leading-relaxed">Perfilado profesional con máquina y navaja, toalla caliente</p>
+				<div class="flex items-baseline gap-2">
+				<span class="text-3xl font-bold text-amber-500">$4.000</span>
+				<span class="text-zinc-500">ARS</span>
+				</div>
+			</div>
+
+			</div>
+
+		</div>
+	</section>
+
+
+	<!-- GALERÍA -->
+	<section id="galeria" class="bg-zinc-950 text-white py-24">
+		<div class="max-w-6xl mx-auto px-6">
+
+			<div class="text-center mb-16">
+			<div class="text-amber-500 font-semibold mb-3">NUESTRO TRABAJO</div>
+			<h2 class="text-4xl sm:text-5xl font-bold mb-4">
+				Galería
+			</h2>
+			<p class="text-zinc-400 max-w-2xl mx-auto">
+				Algunos de nuestros mejores trabajos
+			</p>
+			</div>
+
+			<div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+			<div class="overflow-hidden rounded-xl h-64">
+				<img src="https://images.unsplash.com/photo-1605497788044-5a32c7078486?w=400" 
+					alt="Corte 1" 
+					class="gallery-img w-full h-full object-cover">
+			</div>
+			<div class="overflow-hidden rounded-xl h-64">
+				<img src="https://images.unsplash.com/photo-1622286342621-4bd786c2447c?w=400" 
+					alt="Corte 2" 
+					class="gallery-img w-full h-full object-cover">
+			</div>
+			<div class="overflow-hidden rounded-xl h-64">
+				<img src="https://images.unsplash.com/photo-1621605815971-fbc98d665033?w=400" 
+					alt="Corte 3" 
+					class="gallery-img w-full h-full object-cover">
+			</div>
+			<div class="overflow-hidden rounded-xl h-64">
+				<img src="https://images.unsplash.com/photo-1599351431202-1e0f0137899a?w=400" 
+					alt="Corte 4" 
+					class="gallery-img w-full h-full object-cover">
+			</div>
+			</div>
+
+		</div>
+	</section>
+
+
+	<!-- EQUIPO -->
+	<section id="equipo" class="bg-zinc-900 text-white py-24">
+		<div class="max-w-6xl mx-auto px-6">
+
+			<div class="text-center mb-16">
+			<div class="text-amber-500 font-semibold mb-3">NUESTRO EQUIPO</div>
+			<h2 class="text-4xl sm:text-5xl font-bold mb-4">
+				Barberos Profesionales
+			</h2>
+			<p class="text-zinc-400 max-w-2xl mx-auto">
+				Expertos con más de 10 años de experiencia
+			</p>
+			</div>
+
+			<div class="grid md:grid-cols-3 gap-8">
+			
+			<div class="text-center">
+				<div class="mb-6 mx-auto w-48 h-48 rounded-full overflow-hidden border-4 border-amber-500">
+				<img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400" 
+					alt="Barbero" 
+					class="w-full h-full object-cover">
+				</div>
+				<h3 class="text-xl font-bold mb-2 heading">Martín González</h3>
+				<p class="text-amber-500 mb-3">Barbero Principal</p>
+				<p class="text-zinc-400 text-sm">15 años de experiencia en cortes clásicos y modernos</p>
+			</div>
+
+			<div class="text-center">
+				<div class="mb-6 mx-auto w-48 h-48 rounded-full overflow-hidden border-4 border-amber-500">
+				<img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=400" 
+					alt="Barbero" 
+					class="w-full h-full object-cover">
+				</div>
+				<h3 class="text-xl font-bold mb-2 heading">Lucas Fernández</h3>
+				<p class="text-amber-500 mb-3">Especialista en Barba</p>
+				<p class="text-zinc-400 text-sm">10 años perfeccionando el arte del perfilado</p>
+			</div>
+
+			<div class="text-center">
+				<div class="mb-6 mx-auto w-48 h-48 rounded-full overflow-hidden border-4 border-amber-500">
+				<img src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=400" 
+					alt="Barbero" 
+					class="w-full h-full object-cover">
+				</div>
+				<h3 class="text-xl font-bold mb-2 heading">Diego Pérez</h3>
+				<p class="text-amber-500 mb-3">Barbero Creativo</p>
+				<p class="text-zinc-400 text-sm">Especialista en diseños y cortes modernos</p>
+			</div>
+
+			</div>
+
+		</div>
+	</section>
+
+
+	<!-- TESTIMONIOS -->
+	<section class="bg-zinc-950 text-white py-24">
+		<div class="max-w-6xl mx-auto px-6">
+
+			<div class="text-center mb-16">
+			<div class="text-amber-500 font-semibold mb-3">TESTIMONIOS</div>
+			<h2 class="text-4xl sm:text-5xl font-bold mb-4">
+				Lo que dicen nuestros clientes
+			</h2>
+			</div>
+
+			<div class="grid md:grid-cols-3 gap-6">
+			
+			<div class="bg-zinc-900 p-8 rounded-2xl border border-zinc-800">
+				<div class="flex gap-1 mb-4">
+				<span class="text-amber-500">⭐</span>
+				<span class="text-amber-500">⭐</span>
+				<span class="text-amber-500">⭐</span>
+				<span class="text-amber-500">⭐</span>
+				<span class="text-amber-500">⭐</span>
+				</div>
+				<p class="text-zinc-300 mb-6 italic">"Excelente atención y muy profesionales. El mejor corte que me hice en Córdoba, sin dudas vuelvo."</p>
+				<div class="font-semibold">— Juan Carlos M.</div>
+			</div>
+
+			<div class="bg-zinc-900 p-8 rounded-2xl border border-zinc-800">
+				<div class="flex gap-1 mb-4">
+				<span class="text-amber-500">⭐</span>
+				<span class="text-amber-500">⭐</span>
+				<span class="text-amber-500">⭐</span>
+				<span class="text-amber-500">⭐</span>
+				<span class="text-amber-500">⭐</span>
+				</div>
+				<p class="text-zinc-300 mb-6 italic">"El sistema de turnos online es súper cómodo. No más esperas, llegás y te atienden al toque."</p>
+				<div class="font-semibold">— Federico L.</div>
+			</div>
+
+			<div class="bg-zinc-900 p-8 rounded-2xl border border-zinc-800">
+				<div class="flex gap-1 mb-4">
+				<span class="text-amber-500">⭐</span>
+				<span class="text-amber-500">⭐</span>
+				<span class="text-amber-500">⭐</span>
+				<span class="text-amber-500">⭐</span>
+				<span class="text-amber-500">⭐</span>
+				</div>
+				<p class="text-zinc-300 mb-6 italic">"Ambiente impecable, muy buena onda. Martín es un crack, sabe exactamente lo que necesitás."</p>
+				<div class="font-semibold">— Sebastián R.</div>
+			</div>
+
+			</div>
+
+		</div>
+	</section>
+
+
+	<!-- TURNOS -->
+	<section id="turnos" class="bg-zinc-900 text-white py-24">
+		<div class="max-w-3xl mx-auto px-6">
+
+			<div class="text-center mb-12">
+			<div class="text-amber-500 font-semibold mb-3">RESERVA AHORA</div>
+			<h2 class="text-4xl sm:text-5xl font-bold mb-4">
+				Reservar turno
+			</h2>
+			<p class="text-zinc-400">
+				Completá el formulario y te confirmamos por WhatsApp
+			</p>
+			</div>
+
+			<div class="bg-zinc-950 p-8 md:p-12 rounded-3xl border-2 border-zinc-800">
+			
+			<form class="space-y-6" id="appointmentForm">
+
+				<!-- nombre -->
+				<div>
+				<label class="block text-sm font-semibold mb-2 text-zinc-300">Nombre completo</label>
+				<input type="text"
+					name="nombre"
+					class="w-full bg-zinc-900 border-2 border-zinc-700 rounded-xl px-4 py-3 focus:outline-none focus:border-amber-500 transition"
+					placeholder="Ej: Juan Pérez"
+					required>
+				</div>
+
+				<!-- teléfono -->
+				<div>
+				<label class="block text-sm font-semibold mb-2 text-zinc-300">Teléfono (WhatsApp)</label>
+				<input type="tel"
+					name="telefono"
+					class="w-full bg-zinc-900 border-2 border-zinc-700 rounded-xl px-4 py-3 focus:outline-none focus:border-amber-500 transition"
+					placeholder="Ej: 351 123 4567"
+					required>
+				</div>
+
+				<!-- servicio -->
+				<div>
+				<label class="block text-sm font-semibold mb-2 text-zinc-300">Servicio</label>
+				<select name="servicio" class="w-full bg-zinc-900 border-2 border-zinc-700 rounded-xl px-4 py-3 focus:outline-none focus:border-amber-500 transition">
+					<option value="corte">Corte clásico - $6.000</option>
+					<option value="corte-barba">Corte + Barba - $9.000</option>
+					<option value="barba">Barba - $4.000</option>
+				</select>
+				</div>
+
+				<div class="grid md:grid-cols-2 gap-6">
+				<!-- fecha -->
+				<div>
+					<label class="block text-sm font-semibold mb-2 text-zinc-300">Fecha</label>
+					<input type="date"
+					name="fecha"
+					class="w-full bg-zinc-900 border-2 border-zinc-700 rounded-xl px-4 py-3 focus:outline-none focus:border-amber-500 transition"
+					required>
+				</div>
+
+				<!-- hora -->
+				<div>
+					<label class="block text-sm font-semibold mb-2 text-zinc-300">Hora</label>
+					<select name="hora" class="w-full bg-zinc-900 border-2 border-zinc-700 rounded-xl px-4 py-3 focus:outline-none focus:border-amber-500 transition">
+					<option>09:00</option>
+					<option>10:00</option>
+					<option>11:00</option>
+					<option>12:00</option>
+					<option>16:00</option>
+					<option>17:00</option>
+					<option>18:00</option>
+					<option>19:00</option>
+					</select>
+				</div>
+				</div>
+
+				<!-- barbero preferido -->
+				<div>
+				<label class="block text-sm font-semibold mb-2 text-zinc-300">Barbero preferido (opcional)</label>
+				<select name="barbero" class="w-full bg-zinc-900 border-2 border-zinc-700 rounded-xl px-4 py-3 focus:outline-none focus:border-amber-500 transition">
+					<option value="">Sin preferencia</option>
+					<option value="martin">Martín González</option>
+					<option value="lucas">Lucas Fernández</option>
+					<option value="diego">Diego Pérez</option>
+				</select>
+				</div>
+
+				<!-- boton -->
+				<button type="submit"
+				class="w-full bg-gradient-to-r from-amber-500 to-orange-600 text-white py-4 rounded-xl font-bold text-lg hover:from-amber-600 hover:to-orange-700 transition shadow-lg">
+				Confirmar turno
+				</button>
+
+				<p class="text-center text-zinc-500 text-sm">
+				Te enviaremos la confirmación por WhatsApp
+				</p>
+
+			</form>
+
+			</div>
+
+		</div>
+	</section>
+
+
+	<!-- SOBRE NOSOTROS -->
+	<section class="bg-zinc-950 text-white py-24">
+		<div class="max-w-4xl mx-auto px-6">
+
+			<div class="text-center mb-12">
+				<div class="text-amber-500 font-semibold mb-3">NUESTRA HISTORIA</div>
+					<h2 class="text-4xl sm:text-5xl font-bold mb-6">
+						Sobre nosotros
+					</h2>
+				</div>
+
+				<div class="grid md:grid-cols-2 gap-12 items-center">
+					<div>
+						<p class="text-zinc-300 leading-relaxed mb-6">
+						Somos una barbería moderna con más de 10 años de experiencia en el corazón de Córdoba. 
+						Nuestro equipo de barberos profesionales está comprometido con la excelencia y la atención personalizada.
+						</p>
+						<p class="text-zinc-300 leading-relaxed mb-6">
+						Utilizamos productos de primera calidad y técnicas tanto clásicas como modernas para garantizar 
+						que cada cliente salga satisfecho y con un look impecable.
+						</p>
+						<div class="flex gap-6 text-center">
+							<div>
+								<div class="text-3xl font-bold text-amber-500 heading">10+</div>
+								<div class="text-zinc-400 text-sm">Años</div>
+							</div>
+							<div>
+								<div class="text-3xl font-bold text-amber-500 heading">5000+</div>
+								<div class="text-zinc-400 text-sm">Clientes</div>
+							</div>
+							<div>
+								<div class="text-3xl font-bold text-amber-500 heading">3</div>
+								<div class="text-zinc-400 text-sm">Barberos</div>
+							</div>
+						</div>
+					</div>
+					<div class="rounded-2xl overflow-hidden border-2 border-zinc-800">
+						<img src="https://images.unsplash.com/photo-1585747860715-2ba37e788b70?w=600" 
+							alt="Interior barbería" 
+							class="w-full h-full object-cover">
+					</div>
+				</div>
+
+		</div>
+	</section>
+
+
+	<!-- UBICACIÓN -->
+	<section class="bg-zinc-900 text-white py-24">
+		<div class="max-w-6xl mx-auto px-6">
+
+			<div class="text-center mb-12">
+				<div class="text-amber-500 font-semibold mb-3">VISITANOS</div>
+					<h2 class="text-4xl sm:text-5xl font-bold mb-4">
+						Nuestra ubicación
+					</h2>
+				</div>
+
+				<div class="grid md:grid-cols-2 gap-12">
+				
+				<div class="space-y-6">
+					<div class="flex items-start gap-4">
+						<div class="w-12 h-12 bg-amber-500 rounded-lg flex items-center justify-center flex-shrink-0">
+							<span class="text-2xl">📍</span>
+						</div>
+						<div>
+							<h3 class="font-bold mb-2 heading text-xl">Dirección</h3>
+							<p class="text-zinc-400">Av. Colón 1234<br/>Córdoba Capital, Argentina</p>
+						</div>
+					</div>
+
+					<div class="flex items-start gap-4">
+						<div class="w-12 h-12 bg-amber-500 rounded-lg flex items-center justify-center flex-shrink-0">
+							<span class="text-2xl">🕒</span>
+						</div>
+						<div>
+							<h3 class="font-bold mb-2 heading text-xl">Horarios</h3>
+							<p class="text-zinc-400">
+							Lunes a Viernes: 9:00 - 20:00<br/>
+							Sábados: 9:00 - 20:00<br/>
+							Domingos: Cerrado
+							</p>
+						</div>
+					</div>
+
+					<div class="flex items-start gap-4">
+						<div class="w-12 h-12 bg-amber-500 rounded-lg flex items-center justify-center flex-shrink-0">
+							<span class="text-2xl">📞</span>
+						</div>
+						<div>
+							<h3 class="font-bold mb-2 heading text-xl">Contacto</h3>
+							<p class="text-zinc-400">
+							WhatsApp: +54 9 351 612 3456<br/>
+							Email: info@modernstyle.com.ar
+							</p>
+						</div>
+					</div>
+				</div>
+
+			<div class="bg-zinc-800 rounded-2xl overflow-hidden border border-zinc-700 h-96">
+				<iframe 
+				src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d13617.924194853815!2d-64.19067493020996!3d-31.416091265625!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x9432a28ec7301aa1%3A0xa6947391973a6d34!2sC%C3%B3rdoba%2C%20Argentina!5e0!3m2!1ses!2sus!4v1234567890123" 
+				width="100%" 
+				height="100%" 
+				style="border:0;" 
+				allowfullscreen="" 
+				loading="lazy">
+				</iframe>
+			</div>
+
+			</div>
+
+		</div>
+	</section>
+
+
+	<!-- FOOTER -->
+	<footer class="bg-zinc-950 text-zinc-400 border-t border-zinc-800">
+		<div class="max-w-6xl mx-auto px-6 py-12">
+			
+			<div class="grid md:grid-cols-4 gap-8 mb-8">
+			
+			<!-- Logo y descripción -->
+			<div class="md:col-span-2">
+				<div class="flex items-center gap-3 mb-4">
+				<div class="w-10 h-10 bg-gradient-to-br from-amber-500 to-orange-600 rounded-lg flex items-center justify-center">
+					<span class="text-white text-xl font-bold">✂</span>
+				</div>
+				<span class="text-white font-bold text-xl heading">Modern Style</span>
+				</div>
+				<p class="text-zinc-500 mb-6 max-w-md">
+				Barbería profesional en Córdoba con más de 10 años de experiencia. 
+				Cortes modernos y clásicos con atención personalizada.
+				</p>
+				<div class="flex gap-4">
+				<a href="https://instagram.com" target="_blank" 
+					class="w-10 h-10 bg-zinc-900 rounded-lg flex items-center justify-center hover:bg-amber-500 transition">
+					<svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+				</a>
+				<a href="https://facebook.com" target="_blank" 
+					class="w-10 h-10 bg-zinc-900 rounded-lg flex items-center justify-center hover:bg-amber-500 transition">
+					<svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+				</a>
+				<a href="https://wa.me/5493516123456" target="_blank" 
+					class="w-10 h-10 bg-zinc-900 rounded-lg flex items-center justify-center hover:bg-amber-500 transition">
+					<svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
+				</a>
+				</div>
+			</div>
+
+			<!-- Enlaces rápidos -->
+			<div>
+				<h3 class="text-white font-bold mb-4 heading text-lg">Enlaces</h3>
+				<ul class="space-y-2">
+				<li><a href="#inicio" class="hover:text-amber-500 transition">Inicio</a></li>
+				<li><a href="#servicios" class="hover:text-amber-500 transition">Servicios</a></li>
+				<li><a href="#galeria" class="hover:text-amber-500 transition">Galería</a></li>
+				<li><a href="#equipo" class="hover:text-amber-500 transition">Equipo</a></li>
+				<li><a href="#turnos" class="hover:text-amber-500 transition">Turnos</a></li>
+				</ul>
+			</div>
+
+			<!-- Contacto -->
+			<div>
+				<h3 class="text-white font-bold mb-4 heading text-lg">Contacto</h3>
+				<ul class="space-y-2 text-sm">
+				<li>📍 Av. Colón 1234</li>
+				<li>Córdoba, Argentina</li>
+				<li>📞 +54 9 351 612 3456</li>
+				<li>✉️ info@modernstyle.com.ar</li>
+				</ul>
+			</div>
+
+			</div>
+
+			<!-- Copyright -->
+			<div class="border-t border-zinc-800 pt-8 text-center text-sm">
+			<p>© 2026 Barbería Modern Style. Todos los derechos reservados.</p>
+			</div>
+
+		</div>
+	</footer>
+
+
+	<!-- WhatsApp flotante -->
+	<a href="https://wa.me/5493516123456?text=Hola!%20Quiero%20reservar%20un%20turno" 
+		target="_blank" 
+		class="whatsapp-float"
+		aria-label="Contactar por WhatsApp">
+		<svg class="w-7 h-7" fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
+	</a>
+
+
+	<!-- Script para el formulario -->
+	<script>
+		document.getElementById('appointmentForm')?.addEventListener('submit', function(e) {
+			e.preventDefault();
+			
+			const formData = new FormData(e.target);
+			const nombre = formData.get('nombre');
+			const telefono = formData.get('telefono');
+			const servicio = formData.get('servicio');
+			const fecha = formData.get('fecha');
+			const hora = formData.get('hora');
+			const barbero = formData.get('barbero') || 'Sin preferencia';
+			
+			// Crear mensaje para WhatsApp
+			const mensaje = `¡Hola! Quiero reservar un turno:
+			
+			📋 *Datos del turno*
+			👤 Nombre: ${nombre}
+			📞 Teléfono: ${telefono}
+			✂️ Servicio: ${servicio}
+			📅 Fecha: ${fecha}
+			🕐 Hora: ${hora}
+			💈 Barbero: ${barbero}`;
+			
+			const mensajeCodificado = encodeURIComponent(mensaje);
+			const numeroWhatsApp = '3572548014';
+			const urlWhatsApp = `https://wa.me/${numeroWhatsApp}?text=${mensajeCodificado}`;
+			
+			// Abrir WhatsApp
+			window.open(urlWhatsApp, '_blank');
+			
+			// Opcional: Resetear formulario
+			e.target.reset();
+			
+			// Mostrar confirmación
+			alert('Te redirigimos a WhatsApp para confirmar tu turno');
+		});
+
+		// Scroll
+
+		document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+			anchor.addEventListener("click", function(e) {
+				e.preventDefault();
+
+				const target = document.querySelector(this.getAttribute("href"));
+
+				if (target) {
+				target.scrollIntoView({
+					behavior: "smooth",
+					block: "start"
+				});
+				}
+			});
+		});
+	</script>
+
 </Layout>
